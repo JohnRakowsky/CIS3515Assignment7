@@ -81,12 +81,18 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
     public void itemSelected(HashMap book) {
         BookDetailsFragment bookDetailsFragment = BookDetailsFragment.newInstance(book);
 
-
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container1, bookDetailsFragment);
-        fragmentTransaction.addToBackStack(BookDetailsFragment.class.getName());
-        fragmentTransaction.commit();
-
+        if(findViewById(R.id.container2) == null) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container1, bookDetailsFragment);
+            fragmentTransaction.addToBackStack(BookDetailsFragment.class.getName());
+            fragmentTransaction.commit();
+        }
+        else{
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container2, bookDetailsFragment);
+            fragmentTransaction.addToBackStack(BookDetailsFragment.class.getName());
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -96,14 +102,14 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
     @Override
     public void onBackPressed() {
 
-
-            ArrayList<HashMap<String,String>> BookList = generateBookList();
-            BookListFragment bookListFragment = BookListFragment.newInstance(BookList);
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container1, bookListFragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-
+            if(findViewById(R.id.container2) == null) {
+                ArrayList<HashMap<String, String>> BookList = generateBookList();
+                BookListFragment bookListFragment = BookListFragment.newInstance(BookList);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container1, bookListFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
 
     }
 }
