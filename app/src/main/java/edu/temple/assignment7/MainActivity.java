@@ -1,6 +1,8 @@
 package edu.temple.assignment7;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,7 +11,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements BookListFragment.OnItemSelectedInterface {
+public class MainActivity extends AppCompatActivity implements BookListFragment.OnItemSelectedInterface, BookDetailsFragment.OnFragmentInteractionListener {
+
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +22,11 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
 
         ArrayList<HashMap<String,String>> BookList = generateBookList();
         BookListFragment bookListFragment = BookListFragment.newInstance(BookList);
-        getSupportFragmentManager().beginTransaction().add(R.id.container1, bookListFragment).commit();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.container1, bookListFragment);
+        fragmentTransaction.addToBackStack(BookListFragment.class.getName());
+        fragmentTransaction.commit();
 
     }
 
@@ -71,9 +79,31 @@ public class MainActivity extends AppCompatActivity implements BookListFragment.
 
     @Override
     public void itemSelected(HashMap book) {
-        String author = (String) book.get("Author");
-        Toast toast=Toast.makeText(getApplicationContext(), author ,Toast.LENGTH_SHORT);
-        toast.setMargin(50,50);
-        toast.show();
+        BookDetailsFragment bookDetailsFragment = BookDetailsFragment.newInstance(book);
+
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container1, bookDetailsFragment);
+        fragmentTransaction.addToBackStack(BookDetailsFragment.class.getName());
+        fragmentTransaction.commit();
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+    @Override
+    public void onBackPressed() {
+
+
+            ArrayList<HashMap<String,String>> BookList = generateBookList();
+            BookListFragment bookListFragment = BookListFragment.newInstance(BookList);
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container1, bookListFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
+
     }
 }
