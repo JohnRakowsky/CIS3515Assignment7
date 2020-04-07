@@ -28,7 +28,7 @@ public class BookDetailsFragment extends Fragment {
 
 
     // TODO: Rename and change types of parameters
-    private HashMap book;
+    private Book book;
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,7 +43,7 @@ public class BookDetailsFragment extends Fragment {
      * @return A new instance of fragment BookDetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BookDetailsFragment newInstance(HashMap book) {
+    public static BookDetailsFragment newInstance(Book book) {
         BookDetailsFragment fragment = new BookDetailsFragment();
         Bundle args = new Bundle();
         args.putSerializable("Book", book);
@@ -55,7 +55,7 @@ public class BookDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            book = (HashMap) getArguments().getSerializable("Book");
+            book = (Book) getArguments().getSerializable("Book");
         }
     }
 
@@ -67,8 +67,8 @@ public class BookDetailsFragment extends Fragment {
 
         TextView txtbook = layout.findViewById(R.id.txtBook);
         TextView txtauthor = layout.findViewById(R.id.txtAuthor);
-        String booktxt = (String) book.get("Book");
-        String authortxt = (String) book.get("Author");
+        String booktxt = (String) book.getTitle();
+        String authortxt = (String) book.getAuthor();
         txtbook.setText(booktxt);
         txtauthor.setText(authortxt);
 

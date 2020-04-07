@@ -12,11 +12,11 @@ import java.util.HashMap;
 
 public class BookListAdapter extends BaseAdapter {
 
-    ArrayList<HashMap<String,String>> books;
+    ArrayList<Book> books;
     Context ctxt;
     LayoutInflater inflater;
 
-    public BookListAdapter(ArrayList<HashMap<String,String>> booklist, Context c) {
+    public BookListAdapter(ArrayList<Book> booklist, Context c) {
         books = booklist;
         ctxt = c;
         inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -50,8 +50,8 @@ public class BookListAdapter extends BaseAdapter {
 
         TextView book = (TextView) view.findViewById(R.id.book);
         TextView author = (TextView) view.findViewById(R.id.author);
-        book.setText(books.get(position).get("Book"));
-        author.setText(books.get(position).get("Author"));
+        book.setText(books.get(position).getTitle());
+        author.setText(books.get(position).getAuthor());
         return view;
     }
 

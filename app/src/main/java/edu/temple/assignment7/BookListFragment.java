@@ -34,11 +34,11 @@ public class BookListFragment extends Fragment {
 
 
 
-    private ArrayList<HashMap<String, String>> BookList;
+    private ArrayList<Book> BookList;
 
     private OnItemSelectedInterface mListener;
 
-    private HashMap book;
+    private Book book;
 
     Context context;
 
@@ -53,7 +53,7 @@ public class BookListFragment extends Fragment {
      * @return A new instance of fragment BookListFragment.
      */
 
-    public static BookListFragment newInstance(ArrayList<HashMap<String,String>> bookList) {
+    public static BookListFragment newInstance(ArrayList<Book> bookList) {
         BookListFragment fragment = new BookListFragment();
         Bundle args = new Bundle();
 
@@ -67,7 +67,7 @@ public class BookListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
-            BookList = (ArrayList<HashMap<String,String>>) getArguments().getSerializable("BookList");
+            BookList = (ArrayList<Book>) getArguments().getSerializable("BookList");
         }
     }
 
@@ -126,6 +126,6 @@ public class BookListFragment extends Fragment {
      */
     public interface OnItemSelectedInterface {
 
-        void itemSelected(HashMap book);
+        void itemSelected(Book book);
     }
 }
