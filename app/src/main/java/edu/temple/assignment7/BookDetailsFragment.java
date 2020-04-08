@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -67,11 +70,13 @@ public class BookDetailsFragment extends Fragment {
 
         TextView txtbook = layout.findViewById(R.id.txtBook);
         TextView txtauthor = layout.findViewById(R.id.txtAuthor);
+        ImageView cover = layout.findViewById(R.id.imgCover);
         String booktxt = (String) book.getTitle();
         String authortxt = (String) book.getAuthor();
+        String coverurl = (String) book.getCoverURL();
         txtbook.setText(booktxt);
         txtauthor.setText(authortxt);
-
+        Picasso.get().load(coverurl).into(cover);
 
         return layout;
     }
